@@ -115,12 +115,13 @@ const TimeScroller = ({title, data, onChange}) => {
 };
 
 const SelectTime = () => {
-  const {options, state, utils, minuteInterval, mode, onTimeChange} = useCalendar();
+  const {options, state, utils, minuteInterval, secondInterval, mode, onTimeChange} = useCalendar();
   const [mainState, setMainState] = state;
   const [show, setShow] = useState(false);
   const [time, setTime] = useState({
     minute: 0,
     hour: 0,
+    second: 0
   });
   const style = styles(options);
   const openAnimation = useRef(new Animated.Value(0)).current;
@@ -130,6 +131,7 @@ const SelectTime = () => {
       setTime({
         minute: 0,
         hour: 0,
+        second: 0,
       });
   }, [show]);
 
@@ -193,6 +195,11 @@ const SelectTime = () => {
         title={utils.config.minute}
         data={Array.from({length: 60 / minuteInterval}, (x, i) => i * minuteInterval)}
         onChange={minute => setTime({...time, minute})}
+      />
+      <TimeScroller
+        title={utils.config.second}
+        data={Array.from({length: 60 / secondInterval}, (x, i) => i * secondInterval)}
+        onChange={second => setTime({...time, second})}
       />
       <View style={style.footer}>
         <TouchableOpacity style={style.button} activeOpacity={0.8} onPress={selectTime}>

@@ -123,6 +123,7 @@ const optionsShape = {
 };
 const modeArray = ['datepicker', 'calendar', 'monthYear', 'time'];
 const minuteIntervalArray = [1, 2, 3, 4, 5, 6, 10, 12, 15, 20, 30, 60];
+const secondIntervalArray = [1, 2, 3, 4, 5, 6, 10, 12, 15, 20, 30, 60];
 
 DatePicker.defaultProps = {
   onSelectedChange: () => null,
@@ -142,6 +143,8 @@ DatePicker.defaultProps = {
   options: {},
   mode: 'datepicker',
   minuteInterval: 5,
+  secondInterval: 5,
+
   style: {},
 };
 
@@ -163,6 +166,7 @@ DatePicker.propTypes = {
   options: PropTypes.shape(optionsShape),
   mode: PropTypes.oneOf(modeArray),
   minuteInterval: PropTypes.oneOf(minuteIntervalArray),
+  secondInterval: PropTypes.oneOf(secondIntervalArray),
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
 };
 
