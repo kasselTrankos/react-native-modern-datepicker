@@ -16,7 +16,7 @@ const options = {
   defaultFont: 'System',
   headerFont: 'System',
   textFontSize: 15,
-  textHeaderFontSize: 17,
+  textHeaderFontSize: 13,
   headerAnimationDistance: 100,
   daysAnimationDistance: 200,
 };
@@ -57,7 +57,7 @@ const DatePicker = props => {
       timeOpen: props.mode === 'time',
     }),
   };
-  const [minHeight, setMinHeight] = useState(300);
+  const [minHeight, setMinHeight] = useState(500);
   const style = styles(contextValue.options);
 
   const renderBody = () => {
@@ -89,7 +89,7 @@ const DatePicker = props => {
     <CalendarContext.Provider value={contextValue}>
       <View
         style={[style.container, {minHeight}, props.style]}
-        onLayout={({nativeEvent}) => setMinHeight(nativeEvent.layout.width * 0.9 + 55)}>
+        onLayout={({nativeEvent}) => setMinHeight(nativeEvent.layout.width * 0.6)}>
         {renderBody()}
       </View>
     </CalendarContext.Provider>
@@ -144,7 +144,6 @@ DatePicker.defaultProps = {
   mode: 'datepicker',
   minuteInterval: 5,
   secondInterval: 5,
-
   style: {},
 };
 

@@ -52,9 +52,10 @@ const gregorianConfigs = {
   timeFormat: 'HH:mm',
   hour: 'Hour',
   minute: 'Minute',
-  second: 'Second',
+  second: 'Duration',
   timeSelect: 'Select',
   timeClose: 'Close',
+  secondsLength: 190
 };
 
 class utils {

@@ -147,7 +147,7 @@ const SelectTime = () => {
     });
   }, [mainState.timeOpen, openAnimation]);
 
-  const selectTime = () => {
+  const selectTime = (current) => {
     const newTime = utils.getDate(mainState.activeDate);
     newTime.hour(time.hour).minute(time.minute);
     setMainState({
@@ -162,7 +162,7 @@ const SelectTime = () => {
           )
         : '',
     });
-    onTimeChange(utils.getFormated(newTime, 'timeFormat'));
+    onTimeChange(current);
     mode !== 'time' &&
       setMainState({
         type: 'toggleTime',
@@ -189,35 +189,27 @@ const SelectTime = () => {
       <TimeScroller
         title={utils.config.hour}
         data={Array.from({length: 24}, (x, i) => i)}
-        onChange={hour => setTime({...time, hour})}
+        onChange={hour => {
+          setTime({...time, hour})
+          selectTime({...time, hour})
+        }}
       />
       <TimeScroller
         title={utils.config.minute}
         data={Array.from({length: 60 / minuteInterval}, (x, i) => i * minuteInterval)}
-        onChange={minute => setTime({...time, minute})}
+        onChange={minute => {
+          setTime({...time, minute})
+          selectTime({...time, minute})
+        }}
       />
       <TimeScroller
         title={utils.config.second}
-        data={Array.from({length: 60 / secondInterval}, (x, i) => i * secondInterval)}
-        onChange={second => setTime({...time, second})}
+        data={Array.from({length: utils.config.secondsLength / secondInterval}, (x, i) => i * secondInterval)}
+        onChange={second => {
+          setTime({...time, second})
+          selectTime({...time, second})
+        }}
       />
-      <View style={style.footer}>
-        <TouchableOpacity style={style.button} activeOpacity={0.8} onPress={selectTime}>
-          <Text style={style.btnText}>{utils.config.timeSelect}</Text>
-        </TouchableOpacity>
-        {mode !== 'time' && (
-          <TouchableOpacity
-            style={[style.button, style.cancelButton]}
-            onPress={() =>
-              setMainState({
-                type: 'toggleTime',
-              })
-            }
-            activeOpacity={0.8}>
-            <Text style={style.btnText}>{utils.config.timeClose}</Text>
-          </TouchableOpacity>
-        )}
-      </View>
     </Animated.View>
   ) : null;
 };
@@ -233,7 +225,8 @@ const styles = theme =>
       backgroundColor: theme.backgroundColor,
       borderRadius: 10,
       flexDirection: 'column',
-      justifyContent: 'center',
+      backgroundColor: '#fff',
+      // justifyContent: 'center',
       zIndex: 999,
     },
     row: {
@@ -247,7 +240,7 @@ const styles = theme =>
       fontFamily: theme.headerFont,
     },
     listItem: {
-      height: 60,
+      height: 30,
       alignItems: 'center',
       justifyContent: 'center',
     },
