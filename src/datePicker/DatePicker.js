@@ -103,6 +103,7 @@ const styles = theme =>
       position: 'relative',
       width: '100%',
       overflow: 'hidden',
+      height: 177
     },
   });
 
